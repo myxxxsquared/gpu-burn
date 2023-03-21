@@ -506,15 +506,15 @@ void listenClients(std::vector<int> clientFd, std::vector<pid_t> clientPid, int 
 		if (childReport) {
 			float elapsed = fminf((float)(thisTime-startTime)/(float)runTime*100.0f, 100.0f);
 			printf("\r%.1f%%  ", elapsed);
-			printf("proc'd: ");
+			printf("Gflots:");
 			for (size_t i = 0; i < clientCalcs.size(); ++i) {
-				printf("%d (%.0f Gflop/s) ", clientCalcs.at(i), clientGflops.at(i));
+				printf("%.0f", clientGflops.at(i));
 				if (i != clientCalcs.size() - 1)
-					printf("- ");
+					printf("-");
 			}
-			printf("  errors: ");
+			printf(" errors: ");
 			for (size_t i = 0; i < clientErrors.size(); ++i) {
-				std::string note = "%d ";
+				std::string note = "%d";
 				if (clientCalcs.at(i) == -1)
 					note += " (DIED!)";
 				else if (clientErrors.at(i))
@@ -522,13 +522,13 @@ void listenClients(std::vector<int> clientFd, std::vector<pid_t> clientPid, int 
 
 				printf(note.c_str(), clientErrors.at(i));
 				if (i != clientCalcs.size() - 1)
-					printf("- ");
+					printf("-");
 			}
-			printf("  temps: ");
+			printf(" temps: ");
 			for (size_t i = 0; i < clientTemp.size(); ++i) {
-				printf(clientTemp.at(i) != 0 ? "%d C " : "-- ", clientTemp.at(i));
+				printf(clientTemp.at(i) != 0 ? "%d" : "xx", clientTemp.at(i));
 				if (i != clientCalcs.size() - 1)
-					printf("- ");
+					printf("-");
 			}
 			
 			fflush(stdout);
